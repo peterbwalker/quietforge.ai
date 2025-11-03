@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>QuietForge Technologies</title>
+  <meta name="description" content="QuietForge Technologies — Applied AI, secure communications, and embedded systems R&D for mission-critical environments." />
+  <meta property="og:title" content="QuietForge Technologies" />
+  <meta property="og:description" content="Applied AI, secure communications, and embedded systems R&D for mission-critical environments." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://quietforge.ai" />
+  <meta name="theme-color" content="#0b1220" />
+  <link rel="icon" href="/favicon.ico" />
+  <style>
+    :root {
+      --bg:#0b1220;       /* deep navy */
+      --card:#121a2b;     /* slightly lighter panel */
+      --ink:#e8eefc;      /* soft white */
+      --muted:#93a0c6;    /* desaturated slate */
+      --accent:#7dd3fc;   /* cyan accent */
+      --accent-2:#60a5fa; /* blue accent */
+      --ring: rgba(125, 211, 252, 0.45);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+      background: radial-gradient(1200px 800px at 80% 0%, #0e192d 0%, var(--bg) 60%) no-repeat fixed;
+      color: var(--ink);
+      line-height:1.6;
+    }
+    a{color:var(--accent)}
+    header{
+      position:sticky;top:0;backdrop-filter:saturate(160%) blur(6px);
+      background:linear-gradient(to bottom, rgba(11,18,32,.85), rgba(11,18,32,.35));
+      border-bottom:1px solid rgba(125,211,252,.12);
+      z-index:10;
+    }
+    .wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+    .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+    .brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink)}
+    .logo{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;background:linear-gradient(135deg, var(--accent), var(--accent-2));box-shadow:0 8px 30px rgba(96,165,250,.25)}
+    .logo svg{fill:#001830}
+    .brand span{font-weight:700;letter-spacing:.2px}
+
+    .hero{display:grid;gap:24px;grid-template-columns:1.1fr .9fr;align-items:center;padding:72px 0 28px}
+    .hero h1{font-size:clamp(32px,4.2vw,52px);line-height:1.08;margin:0}
+    .hero p{color:var(--muted);margin:8px 0 0}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01));border:1px solid rgba(125,211,252,.12);border-radius:18px;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+
+    .pill{display:inline-flex;gap:8px;align-items:center;padding:6px 10px;border-radius:999px;border:1px solid rgba(125,211,252,.24);color:var(--muted);font-size:12px;letter-spacing:.2px}
+
+    .grid{display:grid;gap:18px}
+    .cols-3{grid-template-columns:repeat(3,1fr)}
+    .cols-2{grid-template-columns:repeat(2,1fr)}
+
+    .feature{padding:18px;border-radius:16px;border:1px solid rgba(125,211,252,.12)}
+    .feature h3{margin:0 0 6px;font-size:18px}
+    .feature p{margin:0;color:var(--muted)}
+
+    .panel{padding:22px}
+
+    .cta{display:flex;gap:12px;margin-top:18px}
+    .btn{appearance:none;border:0;border-radius:12px;padding:12px 16px;cursor:pointer;font-weight:600}
+    .btn-primary{background:linear-gradient(135deg, var(--accent-2), var(--accent));color:#001830;box-shadow:0 10px 28px rgba(96,165,250,.25)}
+    .btn-ghost{background:transparent;border:1px solid rgba(125,211,252,.2);color:var(--ink)}
+
+    form{display:grid;gap:12px}
+    label{font-size:12px;color:var(--muted)}
+    input,textarea{width:100%;background:rgba(255,255,255,.02);border:1px solid rgba(125,211,252,.24);color:var(--ink);padding:12px 14px;border-radius:12px;outline:none}
+    input:focus,textarea:focus{box-shadow:0 0 0 4px var(--ring)}
+    textarea{min-height:120px;resize:vertical}
+
+    footer{margin:36px 0 24px;color:var(--muted);font-size:14px}
+
+    @media (max-width: 880px){
+      .hero{grid-template-columns:1fr;gap:18px;padding-top:42px}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap nav">
+      <a class="brand" href="#">
+        <span class="logo" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="16" height="16" role="img" aria-label="QuietForge logo">
+            <path d="M12 3l2.6 4.7 5.4 1-3.9 3.7.9 5.6L12 16.7 7 18.9l1-5.5L4 8.7l5.4-1L12 3z"/>
+          </svg>
+        </span>
+        <span>QuietForge Technologies</span>
+      </a>
+      <nav aria-label="Primary">
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <div>
+        <span class="pill">Applied AI • Secure Communications • Embedded Systems</span>
+        <h1>R\&D for mission-critical environments.</h1>
+        <p>QuietForge advances covert communications, vision-enabled wearables, and low-power AI — from theory to fieldable prototypes.</p>
+        <div class="cta">
+          <a class="btn btn-primary" href="#contact">Start a conversation</a>
+          <a class="btn btn-ghost" href="#capabilities">Our focus areas</a>
+        </div>
+      </div>
+      <aside class="card panel" aria-label="Highlights">
+        <div class="grid cols-2">
+          <div class="feature">
+            <h3>Covert Channels</h3>
+            <p>Deep-learning steganography and detection-resilient watermarking across image/audio.</p>
+          </div>
+          <div class="feature">
+            <h3>On-Device AI</h3>
+            <p>Distilled/quantized models for smart-glass class hardware with real-time decoding.</p>
+          </div>
+          <div class="feature">
+            <h3>Evaluation Benchmarks</h3>
+            <p>Adversarial testbeds and red-team metrics for robustness and stealth.</p>
+          </div>
+          <div class="feature">
+            <h3>Defense R\&D</h3>
+            <p>IARPA/DARPA-grade methods, rapid prototyping, and transition support.</p>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <section id="capabilities" class="grid cols-3" aria-label="Capabilities">
+      <div class="card panel">
+        <h3>Algorithm R\&D</h3>
+        <p class="muted">Invertible flows, accelerated diffusion, detection-aware training.</p>
+      </div>
+      <div class="card panel">
+        <h3>Systems Engineering</h3>
+        <p class="muted">Embedded decoding, hardware-aware NAS, secure inference pipelines.</p>
+      </div>
+      <div class="card panel">
+        <h3>Prototyping</h3>
+        <p class="muted">From lab demos to fieldable PoCs with measurable performance.</p>
+      </div>
+    </section>
+
+    <section id="contact" class="card panel" aria-label="Contact QuietForge" style="margin-top:22px">
+      <h2 style="margin-top:0">Contact</h2>
+      <p class="muted" style="margin-top:-6px">Tell us about your mission, program, or research need.</p>
+      <form action="mailto:info@quietforge.ai" method="post" enctype="text/plain">
+        <div>
+          <label for="name">Your name</label>
+          <input id="name" name="name" autocomplete="name" required />
+        </div>
+        <div>
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" autocomplete="email" required />
+        </div>
+        <div>
+          <label for="message">Message</label>
+          <textarea id="message" name="message" placeholder="How can we help?" required></textarea>
+        </div>
+        <button class="btn btn-primary" type="submit">Send</button>
+        <p class="muted" style="font-size:12px;margin:10px 0 0">Submits via your email client. Prefer direct? Email <a href="mailto:info@quietforge.ai">info@quietforge.ai</a>.</p>
+      </form>
+    </section>
+
+    <footer class="wrap" role="contentinfo">
+      <p>© <span id="y"></span> QuietForge Technologies, LLC · Maryland, USA · UEI/CAGE pending</p>
+    </footer>
+  </main>
+
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
