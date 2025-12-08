@@ -4,9 +4,9 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>QuietForge Technologies</title>
-  <meta name="description" content="QuietForge Technologies — Applied AI, secure communications, and embedded systems R&D for mission-critical environments." />
+  <meta name="description" content="QuietForge Technologies — Agentic AI, autonomous systems, and AI/ML solutions for complex, mission-critical environments." />
   <meta property="og:title" content="QuietForge Technologies" />
-  <meta property="og:description" content="Applied AI, secure communications, and embedded systems R&D for mission-critical environments." />
+  <meta property="og:description" content="Agentic AI, autonomous systems, and AI/ML solutions for complex, mission-critical environments." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://quietforge.ai" />
   <meta name="theme-color" content="#0b1220" />
@@ -30,7 +30,8 @@
       color: var(--ink);
       line-height:1.6;
     }
-    a{color:var(--accent)}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{opacity:.9}
     header{
       position:sticky;top:0;backdrop-filter:saturate(160%) blur(6px);
       background:linear-gradient(to bottom, rgba(11,18,32,.85), rgba(11,18,32,.35));
@@ -42,7 +43,12 @@
     .brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink)}
     .logo{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;background:linear-gradient(135deg, var(--accent), var(--accent-2));box-shadow:0 8px 30px rgba(96,165,250,.25)}
     .logo svg{fill:#001830}
-    .brand span{font-weight:700;letter-spacing:.2px}
+    .brand span{font-weight:700;letter-spacing:.2px;font-size:15px}
+
+    .nav-links{display:flex;align-items:center;gap:14px;font-size:14px;color:var(--muted);}
+    .nav-links a{color:var(--muted);}
+    .nav-links a.active,
+    .nav-links a:hover{color:var(--ink);}
 
     .hero{display:grid;gap:24px;grid-template-columns:1.1fr .9fr;align-items:center;padding:72px 0 28px}
     .hero h1{font-size:clamp(32px,4.2vw,52px);line-height:1.08;margin:0}
@@ -61,8 +67,8 @@
 
     .panel{padding:22px}
 
-    .cta{display:flex;gap:12px;margin-top:18px}
-    .btn{appearance:none;border:0;border-radius:12px;padding:12px 16px;cursor:pointer;font-weight:600}
+    .cta{display:flex;gap:12px;margin-top:18px;flex-wrap:wrap}
+    .btn{appearance:none;border:0;border-radius:12px;padding:12px 16px;cursor:pointer;font-weight:600;font-size:14px;display:inline-flex;align-items:center;justify-content:center}
     .btn-primary{background:linear-gradient(135deg, var(--accent-2), var(--accent));color:#001830;box-shadow:0 10px 28px rgba(96,165,250,.25)}
     .btn-ghost{background:transparent;border:1px solid rgba(125,211,252,.2);color:var(--ink)}
 
@@ -74,15 +80,36 @@
 
     footer{margin:36px 0 24px;color:var(--muted);font-size:14px}
 
+    .muted{color:var(--muted);}
+
+    /* Leadership layout */
+    .leaders{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:18px;
+      margin-top:18px;
+    }
+    .leader{
+      border-radius:14px;
+      border:1px solid rgba(125,211,252,.16);
+      padding:16px;
+      background:rgba(5,10,24,.7);
+    }
+    .leader-title{font-size:13px;color:var(--muted);margin-top:2px}
+    .leader-bio{font-size:13px;color:var(--muted);margin-top:8px}
+
     @media (max-width: 880px){
       .hero{grid-template-columns:1fr;gap:18px;padding-top:42px}
+      .leaders{grid-template-columns:1fr;}
+      .nav{flex-direction:column;align-items:flex-start;gap:8px}
+      .nav-links{flex-wrap:wrap}
     }
   </style>
 </head>
 <body>
   <header>
     <div class="wrap nav">
-      <a class="brand" href="#">
+      <a class="brand" href="#top">
         <span class="logo" aria-hidden="true">
           <svg viewBox="0 0 24 24" width="16" height="16" role="img" aria-label="QuietForge logo">
             <path d="M12 3l2.6 4.7 5.4 1-3.9 3.7.9 5.6L12 16.7 7 18.9l1-5.5L4 8.7l5.4-1L12 3z"/>
@@ -90,63 +117,159 @@
         </span>
         <span>QuietForge Technologies</span>
       </a>
-      <nav aria-label="Primary">
+      <nav class="nav-links" aria-label="Primary">
+        <a href="#capabilities">Capabilities</a>
+        <a href="#products">Products</a>
+        <a href="#leadership">Leadership</a>
         <a href="#contact">Contact</a>
       </nav>
     </div>
   </header>
 
-  <main class="wrap">
+  <main class="wrap" id="top">
+    <!-- Hero -->
     <section class="hero">
       <div>
-        <span class="pill">Applied AI • Secure Communications • Embedded Systems</span>
-        <h1>R\&D for mission-critical environments.</h1>
-        <p>QuietForge advances covert communications, vision-enabled wearables, and low-power AI — from theory to fieldable prototypes.</p>
+        <span class="pill">Agentic AI • Autonomous Systems • Mission-Ready ML</span>
+        <h1>AI/ML systems for complex, mission-critical decisions.</h1>
+        <p>
+          QuietForge designs and builds agentic, autonomous, and ML-driven technologies that operate where
+          bandwidth is constrained, risk is high, and decisions matter — across defense, cyber, healthcare,
+          and enterprise missions.
+        </p>
         <div class="cta">
           <a class="btn btn-primary" href="#contact">Start a conversation</a>
-          <a class="btn btn-ghost" href="#capabilities">Our focus areas</a>
+          <a class="btn btn-ghost" href="#capabilities">Explore capabilities</a>
         </div>
       </div>
       <aside class="card panel" aria-label="Highlights">
         <div class="grid cols-2">
           <div class="feature">
-            <h3>Covert Channels</h3>
-            <p>Deep-learning steganography and detection-resilient watermarking across image/audio.</p>
+            <h3>Agentic Orchestration</h3>
+            <p>Multi-step, tool-using agents that plan, act, and adapt while keeping humans in the loop.</p>
           </div>
           <div class="feature">
-            <h3>On-Device AI</h3>
-            <p>Distilled/quantized models for smart-glass class hardware with real-time decoding.</p>
+            <h3>Secure &amp; Sovereign AI</h3>
+            <p>On-prem, air-gapped, and zero-trust deployments tailored to sensitive environments.</p>
           </div>
           <div class="feature">
-            <h3>Evaluation Benchmarks</h3>
-            <p>Adversarial testbeds and red-team metrics for robustness and stealth.</p>
+            <h3>Mission Analytics</h3>
+            <p>AI-powered analysis, simulation, and red-teaming to pressure-test plans and systems.</p>
           </div>
           <div class="feature">
-            <h3>Defense R\&D</h3>
-            <p>IARPA/DARPA-grade methods, rapid prototyping, and transition support.</p>
+            <h3>Prototyping to Transition</h3>
+            <p>Rapid PoCs, evaluation harnesses, and clear paths from pilot to production programs.</p>
           </div>
         </div>
       </aside>
     </section>
 
+    <!-- Capabilities -->
     <section id="capabilities" class="grid cols-3" aria-label="Capabilities">
       <div class="card panel">
-        <h3>Algorithm R\&D</h3>
-        <p class="muted">Invertible flows, accelerated diffusion, detection-aware training.</p>
+        <h3>AI/ML &amp; Algorithm R&amp;D</h3>
+        <p class="muted">
+          Foundation and domain-specific models, embeddings, vector memory, and agentic reasoning
+          tuned for real-world constraints.
+        </p>
       </div>
       <div class="card panel">
-        <h3>Systems Engineering</h3>
-        <p class="muted">Embedded decoding, hardware-aware NAS, secure inference pipelines.</p>
+        <h3>Agentic Architectures</h3>
+        <p class="muted">
+          Persistent-state agents, governance layers, and human-machine teaming patterns for
+          high-consequence workflows.
+        </p>
       </div>
       <div class="card panel">
-        <h3>Prototyping</h3>
-        <p class="muted">From lab demos to fieldable PoCs with measurable performance.</p>
+        <h3>Systems &amp; Integration</h3>
+        <p class="muted">
+          Secure pipelines, embedded and edge deployments, and integration with existing tools,
+          sensors, and data platforms.
+        </p>
       </div>
     </section>
 
+    <!-- Products / Portfolio -->
+    <section id="products" class="card panel" aria-label="Product portfolio" style="margin-top:22px">
+      <h2 style="margin-top:0">Portfolio of products</h2>
+      <p class="muted" style="margin-top:-6px">
+        QuietForge develops a growing portfolio of agentic and AI/ML capabilities that can be deployed
+        as standalone products or integrated into existing environments.
+      </p>
+
+      <div class="grid cols-3" style="margin-top:18px">
+        <div class="feature">
+          <h3>QuietForge Agent Core</h3>
+          <p class="muted">
+            An agentic orchestration engine for multi-step workflows, tool calls, and human-in-the-loop
+            decision support across cyber, intel, and operations.
+          </p>
+        </div>
+        <div class="feature">
+          <h3>Secure AI Runtime</h3>
+          <p class="muted">
+            A deployment stack for running models in sovereign, on-prem, and zero-trust environments with
+            auditability, logging, and policy controls built in.
+          </p>
+        </div>
+        <div class="feature">
+          <h3>Mission Simulation Suite</h3>
+          <p class="muted">
+            AI-driven simulation and wargaming environment with adaptive adversaries, scenario injects,
+            and analytics for training and planning.
+          </p>
+        </div>
+      </div>
+
+      <p class="muted" style="font-size:13px;margin-top:14px">
+        Looking for something specific? We regularly co-design custom modules and integrations aligned
+        to program requirements and acquisition pathways.
+      </p>
+    </section>
+
+    <!-- Leadership -->
+    <section id="leadership" class="card panel" aria-label="Leadership team" style="margin-top:22px">
+      <h2 style="margin-top:0">Leadership team</h2>
+      <p class="muted" style="margin-top:-6px">
+        QuietForge is led by experienced technologists and operators with deep backgrounds in AI/ML,
+        national security, and mission-driven R&amp;D.
+      </p>
+
+      <div class="leaders">
+        <article class="leader">
+          <h3>First Last</h3>
+          <div class="leader-title">Co-Founder &amp; Chief Executive Officer</div>
+          <p class="leader-bio">
+            Leads company vision, partnerships, and strategic growth. Background in defense innovation,
+            emerging technology, and dual-use product development.
+          </p>
+        </article>
+        <article class="leader">
+          <h3>First Last</h3>
+          <div class="leader-title">Co-Founder &amp; Chief Science Officer</div>
+          <p class="leader-bio">
+            Oversees AI/ML research, agentic architectures, and technical roadmap. Experience spanning
+            applied ML, healthcare, and national security missions.
+          </p>
+        </article>
+        <article class="leader">
+          <h3>First Last</h3>
+          <div class="leader-title">Head of Engineering</div>
+          <p class="leader-bio">
+            Responsible for product engineering, platforms, and secure deployments. Focused on building
+            reliable systems that perform under real-world constraints.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Contact -->
     <section id="contact" class="card panel" aria-label="Contact QuietForge" style="margin-top:22px">
       <h2 style="margin-top:0">Contact</h2>
-      <p class="muted" style="margin-top:-6px">Tell us about your mission, program, or research need.</p>
+      <p class="muted" style="margin-top:-6px">
+        Tell us about your mission, program, or research need — from exploratory R&amp;D to
+        agentic AI pilots and production deployments.
+      </p>
       <form action="mailto:info@quietforge.ai" method="post" enctype="text/plain">
         <div>
           <label for="name">Your name</label>
@@ -158,10 +281,13 @@
         </div>
         <div>
           <label for="message">Message</label>
-          <textarea id="message" name="message" placeholder="How can we help?" required></textarea>
+          <textarea id="message" name="message" placeholder="How can we help?"></textarea>
         </div>
         <button class="btn btn-primary" type="submit">Send</button>
-        <p class="muted" style="font-size:12px;margin:10px 0 0">Submits via your email client. Prefer direct? Email <a href="mailto:info@quietforge.ai">info@quietforge.ai</a>.</p>
+        <p class="muted" style="font-size:12px;margin:10px 0 0">
+          Submits via your email client. Prefer direct? Email
+          <a href="mailto:info@quietforge.ai">info@quietforge.ai</a>.
+        </p>
       </form>
     </section>
 
