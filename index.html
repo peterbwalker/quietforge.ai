@@ -4,171 +4,683 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Quiet Forge Technologies</title>
-  <meta name="description" content="Agentic AI for mortgage automation across voice and text workflows." />
+  <meta name="description" content="Agentic AI for mortgage automation across multimodal voice and text workflows." />
+
   <style>
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      margin: 0;
-      padding: 0;
-      line-height: 1.6;
-      color: #1a1a1a;
-      background: #ffffff;
+    :root{
+      --bg0:#05060B;
+      --bg1:#070A12;
+      --panel:rgba(255,255,255,0.06);
+      --panel2:rgba(255,255,255,0.035);
+      --text:#F5F7FF;
+      --muted:rgba(245,247,255,0.72);
+      --muted2:rgba(245,247,255,0.55);
+      --line:rgba(245,247,255,0.14);
+      --line2:rgba(245,247,255,0.08);
+
+      /* “Tech neon” palette */
+      --violet:#7C5CFF;
+      --cyan:#22D3EE;
+      --mint:#34D399;
+      --amber:#FBBF24;
+      --hot:#FF4FD8;
+
+      --shadow: 0 18px 70px rgba(0,0,0,0.55);
+      --radius: 18px;
     }
-    header, section, footer {
-      max-width: 1100px;
-      margin: auto;
-      padding: 3rem 1.5rem;
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      color:var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background: radial-gradient(1100px 650px at 18% 10%, rgba(124,92,255,0.22), transparent 60%),
+                  radial-gradient(900px 520px at 82% 0%, rgba(34,211,238,0.16), transparent 55%),
+                  radial-gradient(800px 650px at 60% 92%, rgba(52,211,153,0.10), transparent 60%),
+                  linear-gradient(180deg, var(--bg0), var(--bg1));
+      overflow-x:hidden;
     }
-    header {
-      padding-top: 4rem;
+
+    a{ color:var(--cyan); text-decoration:none; }
+    a:hover{ text-decoration:underline; }
+
+    .wrap{ max-width:1180px; margin:0 auto; padding:0 18px; }
+
+    /* --- Ambient layers (grid + aurora + particles) --- */
+    .ambient{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      z-index:-1;
+      overflow:hidden;
     }
-    h1, h2, h3 {
-      line-height: 1.25;
+
+    /* subtle animated aurora ribbons */
+    .aurora{
+      position:absolute;
+      inset:-40%;
+      background:
+        radial-gradient(closest-side at 30% 25%, rgba(124,92,255,0.23), transparent 60%),
+        radial-gradient(closest-side at 70% 20%, rgba(34,211,238,0.16), transparent 62%),
+        radial-gradient(closest-side at 55% 75%, rgba(255,79,216,0.10), transparent 60%);
+      filter: blur(18px);
+      animation: drift 18s ease-in-out infinite;
+      opacity:0.9;
     }
-    h1 {
-      font-size: 2.75rem;
-      margin-bottom: 1rem;
+    @keyframes drift{
+      0%,100%{ transform: translate3d(0,0,0) scale(1); }
+      50%{ transform: translate3d(-2%, 3%, 0) scale(1.05); }
     }
-    h2 {
-      margin-top: 3rem;
-      font-size: 2rem;
+
+    /* grid overlay */
+    .gridOverlay{
+      position:absolute;
+      inset:0;
+      background-image:
+        linear-gradient(to right, rgba(245,247,255,0.06) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(245,247,255,0.06) 1px, transparent 1px);
+      background-size: 48px 48px;
+      opacity:0.10;
+      mask-image: radial-gradient(circle at 50% 20%, black 0%, transparent 75%);
     }
-    h3 {
-      margin-top: 2rem;
-      font-size: 1.3rem;
+
+    /* tiny particle shimmer */
+    .particles{
+      position:absolute;
+      inset:0;
+      background-image:
+        radial-gradient(circle at 10% 20%, rgba(245,247,255,0.18) 1px, transparent 2px),
+        radial-gradient(circle at 70% 40%, rgba(245,247,255,0.14) 1px, transparent 2px),
+        radial-gradient(circle at 30% 80%, rgba(245,247,255,0.12) 1px, transparent 2px);
+      background-size: 420px 420px, 520px 520px, 620px 620px;
+      animation: shimmer 10s linear infinite;
+      opacity:0.35;
     }
-    p {
-      max-width: 750px;
+    @keyframes shimmer{
+      0%{ transform: translate3d(0,0,0); }
+      100%{ transform: translate3d(-2%, 1.5%, 0); }
     }
-    ul {
-      padding-left: 1.2rem;
+
+    /* --- Nav --- */
+    .nav{
+      position:sticky;
+      top:0;
+      z-index:30;
+      backdrop-filter: blur(14px);
+      background: rgba(5,6,11,0.58);
+      border-bottom: 1px solid var(--line2);
     }
-    li {
-      margin-bottom: 0.5rem;
+    .navInner{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding: 14px 0;
+      gap:12px;
     }
-    .tagline {
-      font-size: 1.25rem;
-      color: #444;
-      max-width: 800px;
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-weight: 800;
+      letter-spacing: 0.2px;
     }
-    .divider {
-      border-top: 1px solid #e5e5e5;
-      margin: 3rem 0;
+    .mark{
+      width: 12px; height: 12px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--violet), var(--cyan));
+      box-shadow: 0 0 18px rgba(124,92,255,0.55);
+      animation: pulse 2.2s ease-in-out infinite;
     }
-    footer {
-      font-size: 0.9rem;
-      color: #666;
-      border-top: 1px solid #e5e5e5;
+    @keyframes pulse{
+      0%,100%{ transform: scale(1); filter: brightness(1); }
+      50%{ transform: scale(1.28); filter: brightness(1.35); }
+    }
+
+    .navlinks{
+      display:flex;
+      gap:16px;
+      flex-wrap:wrap;
+      font-size:0.95rem;
+      color:var(--muted2);
+    }
+    .navlinks a{ color:var(--muted2); }
+    .navlinks a:hover{ color:var(--text); }
+
+    /* --- Hero --- */
+    header.hero{
+      padding: 70px 0 24px;
+      position:relative;
+    }
+    .heroGrid{
+      display:grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 18px;
+      align-items:start;
+    }
+    @media (max-width: 980px){
+      .heroGrid{ grid-template-columns: 1fr; }
+    }
+
+    .badges{ display:flex; gap:10px; flex-wrap:wrap; margin-bottom:14px; }
+    .badge{
+      padding: 7px 10px;
+      border: 1px solid var(--line2);
+      background: rgba(255,255,255,0.03);
+      border-radius: 999px;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .kicker{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      color: rgba(34,211,238,0.85);
+      font-size: 0.86rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin: 0 0 10px;
+    }
+
+    h1{
+      margin: 0 0 10px;
+      font-size: clamp(2.1rem, 3vw, 3.1rem);
+      line-height:1.12;
+      letter-spacing:-0.02em;
+    }
+
+    .tagline{
+      margin:0 0 18px;
+      max-width: 60ch;
+      font-size: 1.08rem;
+      color: var(--muted);
+    }
+
+    .ctaRow{ display:flex; gap:12px; flex-wrap:wrap; margin-top:18px; }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      gap: 10px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--line2);
+      background: rgba(255,255,255,0.035);
+      color: var(--text);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.32);
+      transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
+      user-select:none;
+    }
+    .btn:hover{
+      transform: translateY(-2px);
+      background: rgba(255,255,255,0.06);
+      border-color: rgba(245,247,255,0.22);
+    }
+    .btn.primary{
+      border:none;
+      background: linear-gradient(135deg, rgba(124,92,255,0.95), rgba(34,211,238,0.92));
+      box-shadow: 0 22px 70px rgba(124,92,255,0.22);
+    }
+    .btn.primary:hover{ transform: translateY(-2px) scale(1.01); }
+    .btn small{ opacity:0.82; }
+
+    /* --- Sections & layout --- */
+    section{ padding: 26px 0; }
+    .sectionTitle{
+      font-size: 1.65rem;
+      margin: 18px 0 10px;
+      letter-spacing:-0.01em;
+    }
+    .sectionLead{
+      color: var(--muted);
+      max-width: 85ch;
+      margin: 0 0 16px;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 14px;
+    }
+    .span6{ grid-column: span 6; }
+    .span12{ grid-column: span 12; }
+    @media (max-width: 980px){
+      .span6,.span12{ grid-column: span 12; }
+    }
+
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,0.055), rgba(255,255,255,0.03));
+      border: 1px solid var(--line2);
+      border-radius: var(--radius);
+      padding: 16px;
+      box-shadow: var(--shadow);
+      position:relative;
+      overflow:hidden;
+      transition: transform 200ms ease, border-color 200ms ease;
+    }
+    .card:before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background: radial-gradient(700px 240px at 10% 0%, rgba(34,211,238,0.08), transparent 55%),
+                  radial-gradient(700px 240px at 90% 0%, rgba(124,92,255,0.10), transparent 55%);
+      opacity:0.9;
+      pointer-events:none;
+    }
+    .card > *{ position:relative; }
+    .card:hover{
+      transform: translateY(-3px);
+      border-color: rgba(245,247,255,0.24);
+    }
+    .card h3{
+      margin:0 0 8px;
+      font-size:1.05rem;
+    }
+    .card p{ margin:0; color: var(--muted); }
+    .card ul{ margin: 10px 0 0; padding-left: 18px; color: var(--muted); }
+    .card li{ margin: 6px 0; }
+
+    /* “terminal” callout */
+    .terminal{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      background: rgba(0,0,0,0.28);
+      border: 1px solid rgba(245,247,255,0.10);
+      border-radius: 14px;
+      padding: 14px;
+      color: rgba(245,247,255,0.86);
+    }
+    .terminal .dim{ color: rgba(245,247,255,0.55); }
+    .terminal .ok{ color: rgba(52,211,153,0.9); }
+    .terminal .hl{ color: rgba(34,211,238,0.92); }
+
+    /* Diagram shell */
+    .diagram{
+      padding: 16px;
+      border-radius: var(--radius);
+      border: 1px solid rgba(245,247,255,0.12);
+      background: rgba(255,255,255,0.03);
+      box-shadow: var(--shadow);
+    }
+    .diagramTitle{
+      display:flex;
+      justify-content:space-between;
+      align-items:baseline;
+      gap:10px;
+      margin-bottom:10px;
+    }
+    .diagramTitle strong{ font-size:1.05rem; }
+    .diagramTitle span{ color: var(--muted2); font-size:0.92rem; }
+
+    /* Scroll reveal */
+    .reveal{
+      opacity:0;
+      transform: translateY(16px);
+      transition: opacity 700ms ease, transform 700ms ease;
+    }
+    .reveal.in{ opacity:1; transform: translateY(0); }
+
+    footer{
+      padding: 46px 0 56px;
+      border-top: 1px solid var(--line2);
+      color: var(--muted2);
+      margin-top: 26px;
+    }
+
+    /* Reduce motion */
+    @media (prefers-reduced-motion: reduce){
+      .aurora,.particles,.mark{ animation:none !important; }
+      .reveal,.btn{ transition:none !important; }
+      .card:hover,.btn:hover{ transform:none !important; }
     }
   </style>
 </head>
 
 <body>
+  <div class="ambient" aria-hidden="true">
+    <div class="aurora"></div>
+    <div class="gridOverlay"></div>
+    <div class="particles"></div>
+  </div>
 
-<header>
-  <h1>Quiet Forge Technologies</h1>
-  <p class="tagline">
-    Agentic AI for mortgage automation across voice, text, and decision workflows.
-  </p>
-</header>
+  <div class="nav">
+    <div class="wrap navInner">
+      <div class="brand">
+        <div class="mark"></div>
+        <div>Quiet Forge Technologies</div>
+      </div>
+      <div class="navlinks">
+        <a href="#focus">Focus</a>
+        <a href="#diagrams">Diagrams</a>
+        <a href="#leadership">Leadership</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </div>
 
-<section>
-  <h2>What We Do</h2>
-  <p>
-    Quiet Forge Technologies builds <strong>agentic AI systems</strong> that automate
-    complex, high-friction workflows in the mortgage industry.
-    We focus on intelligent automation that operates across
-    <strong>heterogeneous inputs and outputs</strong>—including voice, text,
-    documents, and structured loan data.
-  </p>
-  <p>
-    Our systems go beyond traditional RPA and scripted chatbots.
-    They are designed to <strong>understand intent</strong>,
-    <strong>reason over context</strong>, and
-    <strong>autonomously execute multi-step tasks</strong>,
-    while maintaining appropriate human oversight.
-  </p>
-</section>
+  <header class="hero">
+    <div class="wrap">
+      <div class="heroGrid">
+        <div class="reveal">
+          <div class="kicker">Agentic AI • Mortgage Automation • Multimodal I/O</div>
 
-<section>
-  <h2>Core Focus Areas</h2>
+          <div class="badges">
+            <div class="badge">Voice ↔ Text</div>
+            <div class="badge">Call Center Agents</div>
+            <div class="badge">Heterogeneous Data</div>
+            <div class="badge">Compliance-Aware</div>
+          </div>
 
-  <h3>Multimodal Mortgage Automation</h3>
-  <ul>
-    <li>Voice → Text (automatic speech recognition)</li>
-    <li>Text → Voice (natural language speech synthesis)</li>
-    <li>Voice → Voice conversational automation</li>
-  </ul>
+          <h1>Autonomous, multimodal automation for mortgage operations.</h1>
 
-  <h3>Agentic Workflow Orchestration</h3>
-  <ul>
-    <li>Goal-driven agents that plan and execute tasks autonomously</li>
-    <li>Context persistence across long-running borrower interactions</li>
-    <li>Human-in-the-loop escalation for compliance and edge cases</li>
-  </ul>
+          <p class="tagline">
+            Quiet Forge builds <strong>agentic AI systems</strong> that orchestrate workflows across voice, text, documents, and loan platforms—reducing manual touches while improving borrower experience and operational throughput.
+          </p>
 
-  <h3>Mortgage Call Center Automation</h3>
-  <ul>
-    <li>Borrower intake and routing</li>
-    <li>Status checks and follow-ups</li>
-    <li>Document requests and validation</li>
-    <li>Servicing and post-close support workflows</li>
-  </ul>
+          <div class="ctaRow">
+            <a class="btn primary" href="#contact">
+              <strong>Request a Pilot</strong> <small>→</small>
+            </a>
+            <a class="btn" href="#diagrams">
+              <strong>View Architecture</strong> <small>↘</small>
+            </a>
+          </div>
 
-  <h3>Heterogeneous Data Integration</h3>
-  <ul>
-    <li>Calls, chat, email, and documents</li>
-    <li>Loan origination and servicing systems</li>
-    <li>Structured and unstructured data pipelines</li>
-  </ul>
-</section>
+          <div style="margin-top:18px" class="terminal">
+            <div><span class="dim">$</span> run agentic_mortgage_automation</div>
+            <div class="dim">> ingest: <span class="hl">voice</span>, <span class="hl">text</span>, <span class="hl">docs</span>, <span class="hl">loan-data</span></div>
+            <div class="dim">> plan: multi-step workflow + policy constraints</div>
+            <div class="dim">> act: tools + systems + human-approval gates</div>
+            <div class="ok">✓ outcome: faster cycle time, fewer touchpoints, better borrower experience</div>
+          </div>
+        </div>
 
-<section>
-  <h2>Why Agentic AI</h2>
-  <p>
-    Mortgage operations are inherently multivariate, asynchronous,
-    and fragmented across systems and teams.
-    Agentic AI enables automation that can reason across these boundaries.
-  </p>
-  <p>
-    By shifting from rule-based automation to <strong>decision-oriented systems</strong>,
-    lenders can reduce operational cost, improve cycle times,
-    and deliver a more consistent borrower experience—without sacrificing control
-    or compliance.
-  </p>
-</section>
+        <div class="diagram reveal" aria-label="Signal flow diagram">
+          <div class="diagramTitle">
+            <strong>Signal Flow</strong>
+            <span>Voice → Text → Agent → Actions → Response</span>
+          </div>
 
-<section>
-  <h2>Leadership</h2>
+          <!-- Diagram 1: Multimodal Signal Flow -->
+          <svg viewBox="0 0 720 340" width="100%" height="auto" role="img" aria-label="Multimodal signal flow">
+            <defs>
+              <linearGradient id="g1" x1="0" x2="1">
+                <stop offset="0" stop-color="#7C5CFF" stop-opacity="0.98" />
+                <stop offset="1" stop-color="#22D3EE" stop-opacity="0.98" />
+              </linearGradient>
+              <filter id="glow">
+                <feGaussianBlur stdDeviation="4" result="b"/>
+                <feMerge>
+                  <feMergeNode in="b"/>
+                  <feMergeNode in="SourceGraphic"/>
+                </feMerge>
+              </filter>
+              <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                <path d="M0,0 L10,3 L0,6" fill="rgba(245,247,255,0.55)"></path>
+              </marker>
+            </defs>
 
-  <h3>Pete Walker, Ph.D.</h3>
-  <p><strong>Chief Product Officer & Co-Founder</strong></p>
-  <ul>
-    <li>Product and technology leader with deep experience in AI and agent-based systems</li>
-    <li>Background transitioning advanced AI capabilities into real-world operations</li>
-    <li>Focus on scalable, secure, and responsible AI deployment in regulated industries</li>
-  </ul>
+            <g opacity="0.11">
+              <path d="M20 50 H700" stroke="#F5F7FF" stroke-width="1"/>
+              <path d="M20 110 H700" stroke="#F5F7FF" stroke-width="1"/>
+              <path d="M20 170 H700" stroke="#F5F7FF" stroke-width="1"/>
+              <path d="M20 230 H700" stroke="#F5F7FF" stroke-width="1"/>
+              <path d="M20 290 H700" stroke="#F5F7FF" stroke-width="1"/>
+            </g>
 
-  <h3>Mihir Mongia, Ph.D.</h3>
-  <p><strong>Founder & Chief Executive Officer</strong></p>
-  <ul>
-    <li>Ph.D. in Computer Science, Carnegie Mellon University</li>
-    <li>Former Stanford postdoctoral researcher</li>
-    <li>Expert in machine learning, quantitative methods, and advanced algorithms</li>
-    <li>Committed to translating cutting-edge research into production platforms</li>
-  </ul>
-  <p>
-    Learn more about Mihir:
-    <a href="https://mihirmongia.github.io" target="_blank">mihirmongia.github.io</a>
-  </p>
-</section>
+            <g font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="16" fill="#F5F7FF">
+              <rect x="30" y="70" rx="16" width="170" height="70" fill="rgba(255,255,255,0.05)" stroke="rgba(245,247,255,0.16)"/>
+              <text x="55" y="110" fill="rgba(245,247,255,0.92)">Borrower Voice</text>
 
-<footer>
-  <p>
-    © Quiet Forge Technologies.  
-    Agentic AI for the future of mortgage automation.
-  </p>
-</footer>
+              <rect x="250" y="40" rx="16" width="200" height="70" fill="rgba(255,255,255,0.05)" stroke="rgba(245,247,255,0.16)"/>
+              <text x="280" y="80" fill="rgba(245,247,255,0.92)">ASR / Transcription</text>
+
+              <rect x="250" y="140" rx="16" width="200" height="70" fill="rgba(255,255,255,0.05)" stroke="rgba(245,247,255,0.16)"/>
+              <text x="292" y="180" fill="rgba(245,247,255,0.92)">Agentic Core</text>
+
+              <rect x="250" y="240" rx="16" width="200" height="70" fill="rgba(255,255,255,0.05)" stroke="rgba(245,247,255,0.16)"/>
+              <text x="290" y="280" fill="rgba(245,247,255,0.92)">TTS / Response</text>
+
+              <rect x="500" y="70" rx="16" width="190" height="70" fill="rgba(255,255,255,0.05)" stroke="rgba(245,247,255,0.16)"/>
+              <text x="528" y="110" fill="rgba(245,247,255,0.92)">Systems & Tasks</text>
+              <text x="528" y="132" fill="rgba(245,247,255,0.62)" font-size="13">LOS • Servicing • Docs</text>
+            </g>
+
+            <g stroke="rgba(245,247,255,0.24)" stroke-width="2" fill="none" marker-end="url(#arrow)">
+              <path d="M200 105 C230 105, 230 75, 250 75" />
+              <path d="M350 110 C350 125, 350 125, 350 140" />
+              <path d="M450 175 C475 175, 475 105, 500 105" />
+              <path d="M350 210 C350 225, 350 225, 350 240" />
+            </g>
+
+            <circle r="7" fill="url(#g1)" filter="url(#glow)">
+              <animateMotion dur="3.2s" repeatCount="indefinite"
+                path="M200 105 C230 105, 230 75, 250 75
+                      C350 75, 350 140, 350 140
+                      C350 175, 450 175, 500 105
+                      C450 105, 450 175, 350 175
+                      C350 210, 350 240, 350 240
+                      C350 275, 450 275, 500 105" />
+            </circle>
+
+            <text x="30" y="325" font-size="13" fill="rgba(245,247,255,0.60)">
+              Multimodal pipeline: voice → text → agent decisions → actions → natural responses.
+            </text>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section id="focus">
+    <div class="wrap">
+      <div class="reveal">
+        <div class="sectionTitle">Core Focus Areas</div>
+        <div class="sectionLead">
+          Mortgage operations require automation that can interpret signals, maintain context, and safely execute multi-step tasks across systems.
+          We build agents designed for real workflows—voice-first, compliance-aware, and integration-ready.
+        </div>
+      </div>
+
+      <div class="grid">
+        <div class="card span6 reveal">
+          <h3>🔊 Multimodal Interactions</h3>
+          <p>Heterogeneous I/O across speech, text, documents, and structured data.</p>
+          <ul>
+            <li>Voice → Text (ASR) and Text → Voice (TTS)</li>
+            <li>Voice → Voice automation for call center workflows</li>
+            <li>Multi-turn context for long-running borrower conversations</li>
+          </ul>
+        </div>
+
+        <div class="card span6 reveal">
+          <h3>🤖 Agentic Orchestration</h3>
+          <p>Goal-driven agents that plan, execute, and escalate as needed.</p>
+          <ul>
+            <li>Task decomposition and tool-use across mortgage systems</li>
+            <li>Human-in-the-loop escalation and approvals</li>
+            <li>Audit-friendly traces for safety and compliance</li>
+          </ul>
+        </div>
+
+        <div class="card span6 reveal">
+          <h3>🏦 Mortgage Call Center Automation</h3>
+          <p>Reduce repetitive work and accelerate borrower support.</p>
+          <ul>
+            <li>Borrower intake, routing, and follow-ups</li>
+            <li>Status checks, doc requests, next-step guidance</li>
+            <li>Servicing and post-close support workflows</li>
+          </ul>
+        </div>
+
+        <div class="card span6 reveal">
+          <h3>🔁 Data + System Integration</h3>
+          <p>Connect calls, systems, and documents into a coherent workflow plane.</p>
+          <ul>
+            <li>LOS + servicing systems + CRM + document stores</li>
+            <li>Structured + unstructured pipelines</li>
+            <li>Operational analytics and continuous improvement</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="diagrams">
+    <div class="wrap">
+      <div class="reveal">
+        <div class="sectionTitle">Agentic Workflow Diagram</div>
+        <div class="sectionLead">
+          A simple view of how we execute automation safely: interpret → reason → act → verify → respond, with oversight and auditability.
+        </div>
+      </div>
+
+      <div class="grid">
+        <div class="diagram span12 reveal">
+          <div class="diagramTitle">
+            <strong>Workflow Execution Loop</strong>
+            <span>Human oversight + audit trails</span>
+          </div>
+
+          <!-- Diagram 2: Agentic Loop -->
+          <svg viewBox="0 0 1100 280" width="100%" height="auto" role="img" aria-label="Agentic workflow loop">
+            <defs>
+              <linearGradient id="g2" x1="0" x2="1">
+                <stop offset="0" stop-color="#22D3EE" stop-opacity="0.98" />
+                <stop offset="1" stop-color="#7C5CFF" stop-opacity="0.98" />
+              </linearGradient>
+              <filter id="glow2">
+                <feGaussianBlur stdDeviation="5" result="b"/>
+                <feMerge>
+                  <feMergeNode in="b"/>
+                  <feMergeNode in="SourceGraphic"/>
+                </feMerge>
+              </filter>
+            </defs>
+
+            <g font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" fill="#F5F7FF">
+              <g>
+                <rect x="40"  y="70" rx="16" width="170" height="90" fill="rgba(255,255,255,0.05)" stroke="rgba(245,247,255,0.16)"/>
+                <text x="64" y="112" font-size="18" fill="rgba(245,247,255,0.92)">Interpret</text>
+                <text x="64" y="138" font-size="13" fill="rgba(245,247,255,0.62)">ASR • parsing • intent</text>
+              </g>
+              <g>
+                <rect x="250" y="70" rx="16" width="170" height="90" fill="rgba(255,255,255,0.05)" stroke="rgba(245,247,255,0.16)"/>
+                <text x="274" y="112" font-size="18" fill="rgba(245,247,255,0.92)">Reason</text>
+                <text x="274" y="138" font-size="13" fill="rgba(245,247,255,0.62)">context • policy • plan</text>
+              </g>
+              <g>
+                <rect x="460" y="70" rx="16" width="170" height="90" fill="rgba(255,255,255,0.05)" stroke="rgba(245,247,255,0.16)"/>
+                <text x="484" y="112" font-size="18" fill="rgba(245,247,255,0.92)">Act</text>
+                <text x="484" y="138" font-size="13" fill="rgba(245,247,255,0.62)">tools • systems • actions</text>
+              </g>
+              <g>
+                <rect x="670" y="70" rx="16" width="170" height="90" fill="rgba(255,255,255,0.05)" stroke="rgba(245,247,255,0.16)"/>
+                <text x="694" y="112" font-size="18" fill="rgba(245,247,255,0.92)">Verify</text>
+                <text x="694" y="138" font-size="13" fill="rgba(245,247,255,0.62)">checks • compliance • QA</text>
+              </g>
+              <g>
+                <rect x="880" y="70" rx="16" width="180" height="90" fill="rgba(255,255,255,0.05)" stroke="rgba(245,247,255,0.16)"/>
+                <text x="904" y="112" font-size="18" fill="rgba(245,247,255,0.92)">Respond</text>
+                <text x="904" y="138" font-size="13" fill="rgba(245,247,255,0.62)">TTS • chat • next steps</text>
+              </g>
+
+              <rect x="330" y="190" rx="14" width="440" height="60" fill="rgba(0,0,0,0.22)" stroke="rgba(245,247,255,0.12)"/>
+              <text x="354" y="225" font-size="14" fill="rgba(245,247,255,0.72)">
+                Human-in-the-loop approvals • audit trails • escalation paths
+              </text>
+            </g>
+
+            <g stroke="rgba(245,247,255,0.22)" stroke-width="2" fill="none">
+              <path d="M210 115 H250" />
+              <path d="M420 115 H460" />
+              <path d="M630 115 H670" />
+              <path d="M840 115 H880" />
+            </g>
+
+            <path d="M210 115 H250 H420 H460 H630 H670 H840 H880"
+                  stroke="url(#g2)" stroke-width="5" fill="none" opacity="0.58" />
+            <circle r="7" fill="url(#g2)" filter="url(#glow2)">
+              <animateMotion dur="2.8s" repeatCount="indefinite"
+                path="M210 115 H250 H420 H460 H630 H670 H840 H880" />
+            </circle>
+
+            <text x="40" y="30" font-size="13" fill="rgba(245,247,255,0.60)">
+              Execution loop: interpret → reason → act → verify → respond
+            </text>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="leadership">
+    <div class="wrap">
+      <div class="reveal">
+        <div class="sectionTitle">Leadership</div>
+        <div class="sectionLead">
+          Two complementary leaders: product + operational execution, and deep technical research leadership.
+        </div>
+      </div>
+
+      <div class="grid">
+        <div class="card span6 reveal">
+          <h3>Pete Walker, Ph.D.</h3>
+          <p><strong>Chief Product Officer & Co-Founder</strong></p>
+          <ul>
+            <li>Product and technology leader with deep experience in AI and agent-based systems</li>
+            <li>Background transitioning advanced AI capabilities into real-world operations</li>
+            <li>Focus on scalable, secure, and responsible AI deployment in regulated industries</li>
+          </ul>
+        </div>
+
+        <div class="card span6 reveal">
+          <h3>Mihir Mongia, Ph.D.</h3>
+          <p><strong>Founder & Chief Executive Officer</strong></p>
+          <ul>
+            <li>Ph.D. in Computer Science, Carnegie Mellon University</li>
+            <li>Former Stanford postdoctoral researcher</li>
+            <li>Expert in machine learning, quantitative methods, and advanced algorithms</li>
+            <li><a href="https://mihirmongia.github.io" target="_blank" rel="noopener">mihirmongia.github.io</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap">
+      <div class="reveal">
+        <div class="sectionTitle">Contact</div>
+        <div class="sectionLead">
+          Interested in pilots, partnerships, or integrating agentic automation into your mortgage workflows?
+        </div>
+        <div class="ctaRow">
+          <a class="btn primary" href="mailto:contact@quietforge.ai">
+            <strong>Email Us</strong> <small>contact@quietforge.ai</small>
+          </a>
+          <a class="btn" href="https://github.com/" target="_blank" rel="noopener">
+            <strong>GitHub</strong> <small>→</small>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <div class="reveal">
+        © Quiet Forge Technologies — Agentic AI for mortgage automation.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Scroll reveal animation
+    const els = document.querySelectorAll('.reveal');
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+    }, { threshold: 0.12 });
+    els.forEach(el => obs.observe(el));
+  </script>
 
 </body>
 </html>
